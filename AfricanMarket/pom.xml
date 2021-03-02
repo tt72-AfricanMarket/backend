@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.lambdaschool</groupId>
-    <artifactId>foundation</artifactId>
+    <artifactId>market</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>usermodel</name>
-    <description>Scaffolding App for Lambda School Build Week</description>
+    <name>africanmarketplace</name>
+    <description>tt72 Build Week</description>
 
     <properties>
         <java.version>11</java.version>
@@ -112,7 +112,7 @@
     </dependencies>
 
     <build>
-        <finalName>jrmmba-foundation</finalName>
+        <finalName>african-marketplace-tt72</finalName>
 
         <plugins>
             <plugin>
