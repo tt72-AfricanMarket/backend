@@ -14,5 +14,11 @@ public interface ProductService
 
     Product findByName(String productname);
 
+    void delete(long id);
+
     Product save(Product product);
+
+    Product update(Product product, long id);
+
+
 }
