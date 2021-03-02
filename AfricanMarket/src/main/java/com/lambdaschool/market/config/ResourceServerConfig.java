@@ -52,7 +52,8 @@ public class ResourceServerConfig
                 "/v2/api-docs",
                 "/webjars/**",
                 "/signup",
-                    "/products/**")
+                    "/products/**",
+                    "/category/**")
             .permitAll()
             .antMatchers(HttpMethod.POST,
                 "/users/**")
