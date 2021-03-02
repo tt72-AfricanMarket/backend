@@ -4,10 +4,7 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 import com.lambdaschool.market.models.*;
-import com.lambdaschool.market.services.LocationService;
-import com.lambdaschool.market.services.ProductService;
-import com.lambdaschool.market.services.RoleService;
-import com.lambdaschool.market.services.UserService;
+import com.lambdaschool.market.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -50,6 +47,9 @@ public class SeedData
     @Autowired
     LocationService locationService;
 
+    @Autowired
+    CategoryService categoryService;
+
     /**
      * Generates test, seed data for our application
      * First a set of known data is seeded into our database.
@@ -67,8 +67,8 @@ public class SeedData
         userService.deleteAll();
         roleService.deleteAll();
         Role r1 = new Role("admin");
-        Role r2 = new Role("user");
-        Role r3 = new Role("data");
+        Role r2 = new Role("seller");
+        Role r3 = new Role("buyer");
 
         r1 = roleService.save(r1);
         r2 = roleService.save(r2);
@@ -88,107 +88,15 @@ public class SeedData
         l5 = locationService.save(l5);
         l6 = locationService.save(l6);
 
+        Category c1 = new Category("meat");
+        Category c2 = new Category("vegetables");
+        Category c3 = new Category("fruit");
+
+        c1 = categoryService.save(c1);
+        c2 = categoryService.save(c2);
+        c3 = categoryService.save(c3);
 
 
-        Product p1 = new Product();
-
-        p1.setName("Eggs");
-        p1.setDescription("A dozen organic eggs laid by only the happiest of chickens");
-        p1.setPrice(2.00);
-        p1.setImageUrl("https://images.unsplash.com/photo-1585507252242-11fe632c26e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
-        p1.setQuantity(1);
-
-        productService.save(p1);
-
-        Product p2 = new Product();
-
-        p2.setName("Milk");
-        p2.setDescription("1 Liter of organic milk squeezed out of the milkiest of cows");
-        p2.setPrice(4.00);
-        p2.setImageUrl("https://images.unsplash.com/photo-1528750997573-59b89d56f4f7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1132&q=80");
-        p2.setQuantity(1);
-
-        productService.save(p2);
-
-        Product p3 = new Product();
-
-        p3.setName("Beef");
-        p3.setDescription("2 Kilos of premium beef cut from the not so happiest of cows");
-        p3.setPrice(14.00);
-        p3.setImageUrl("https://images.unsplash.com/photo-1486172290186-a633e90efd68?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
-        p3.setQuantity(1);
-
-        productService.save(p3);
-
-        Product p4 = new Product();
-
-        p4.setName("Chicken");
-        p4.setDescription("1 whole chicken who wasn't doing enough egg laying, take that chicken");
-        p4.setPrice(10.00);
-        p4.setImageUrl("https://images.unsplash.com/photo-1553161170-0c3481941f27?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80");
-        p4.setQuantity(1);
-
-        productService.save(p4);
-
-        Product p5 = new Product();
-
-        p5.setName("Bacon");
-        p5.setDescription("2 Kilos of thick cut bacon. Babe didn't stand a chance");
-        p5.setPrice(12.00);
-        p5.setImageUrl("https://images.unsplash.com/photo-1606851682837-019baf2e8da4?ixlib=rb-1.2.1&ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80");
-        p5.setQuantity(1);
-
-        productService.save(p5);
-
-        Product p6 = new Product();
-
-        p6.setName("Beans");
-        p6.setDescription("2 Kilos of Beans, beans, the musical fruit The more you eat, the more you toot The more you toot, the better you feel So let's have beans with every meal");
-        p6.setPrice(4.00);
-        p6.setImageUrl("https://images.unsplash.com/photo-1579705745811-a32bef7856a3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
-        p6.setQuantity(1);
-
-        productService.save(p6);
-
-        Product p7 = new Product();
-
-        p7.setName("Rice");
-        p7.setDescription("10 Kilos of brown rice. Did you know, white rice is just brown rice that's been rid of its outer bran layer and polished???");
-        p7.setPrice(10.00);
-        p7.setImageUrl("https://images.unsplash.com/photo-1586201375761-83865001e31c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
-        p7.setQuantity(1);
-
-        productService.save(p7);
-
-        Product p8 = new Product();
-
-        p8.setName("Avocado");
-        p8.setDescription("Idk when this started going on toast but thank you");
-        p8.setPrice(3.00);
-        p8.setImageUrl("https://images.unsplash.com/photo-1522687297221-2d71f8c50fd5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
-        p8.setQuantity(1);
-
-        productService.save(p8);
-
-        Product p9 = new Product();
-
-        p9.setName("Coffee");
-        p9.setDescription("2 Kilos of coffee beans, for those who chose web development as a career and need it to survive");
-        p9.setPrice(5.00);
-        p9.setImageUrl("https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1256&q=80");
-        p9.setQuantity(1);
-
-        productService.save(p9);
-
-        Product p10 = new Product();
-
-        p10.setName("Cannabis");
-        p10.setDescription("I was gonna write this description until I got high...cause I got high, because I got high, because I got hiigghhhh");
-        p10.setPrice(10.00);
-        p10.setImageUrl("https://images.unsplash.com/photo-1457573358540-3f57f7995c6c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
-        p10.setQuantity(1);
-
-        productService.save(p10);
 
 
         // admin, data, user
@@ -204,79 +112,188 @@ public class SeedData
         u1.getRoles()
                 .add(new UserRoles(u1,
                         r3));
-        u1.getUseremails()
-                .add(new Useremail(u1,
-                        "admin@email.local"));
-        u1.getUseremails()
-                .add(new Useremail(u1,
-                        "admin@mymail.local"));
-        u1.getProducts()
-                .add(new Product("Eggs", 2.00,"A dozen organic eggs laid by only the happiest of chickens", "https://images.unsplash.com/photo-1585507252242-11fe632c26e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", 1, u1, l1));
-        u1.getProducts()
-                .add(new Product("Milk", 4.00,"1 Liter of organic milk squeezed out of the milkiest of cows", "https://images.unsplash.com/photo-1528750997573-59b89d56f4f7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1132&q=80", 1, u1, l1));
-        u1.getProducts()
-                .add(new Product("Beef", 14.00,"2 Kilos of premium beef cut from the not so happiest of cows", "https://images.unsplash.com/photo-1486172290186-a633e90efd68?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", 1, u1, l1));
 
-
-
-        userService.save(u1);
+        u1 = userService.save(u1);
 
         // data, user
-        User u2 = new User("connie",
-                "1234567",
-                "connie@mail.com");
+        User u2 = new User("mike",
+                "password",
+                "mike@mail.com");
         u2.getRoles()
                 .add(new UserRoles(u2,
                         r2));
         u2.getRoles()
                 .add(new UserRoles(u2,
                         r3));
-        u2.getUseremails()
-                .add(new Useremail(u2,
-                        "cinnamon@mymail.local"));
-        u2.getUseremails()
-                .add(new Useremail(u2,
-                        "hops@mymail.local"));
-        u2.getUseremails()
-                .add(new Useremail(u2,
-                        "bunny@email.local"));
-        u2.getProducts()
-                .add(new Product("Eggss", 2.00,"A dozen organic eggs laid by only the happiest of chickens", "https://images.unsplash.com/photo-1585507252242-11fe632c26e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", 1, u2, l2));
-        userService.save(u2);
+
+        u2 = userService.save(u2);
 
         // user
-        User u3 = new User("barnbarn",
-                "ILuvM4th!",
-                "barnbarn@lambdaschool.local");
+        User u3 = new User("connie",
+                "password",
+                "connie@maill.com");
         u3.getRoles()
                 .add(new UserRoles(u3,
                         r2));
-        u3.getUseremails()
-                .add(new Useremail(u3,
-                        "barnbarn@email.local"));
-        u3.getProducts()
-                .add(new Product("Eggsss", 2.00,"A dozen organic eggs laid by only the happiest of chickens", "https://images.unsplash.com/photo-1585507252242-11fe632c26e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", 1, u3, l3));
-        userService.save(u3);
 
-        User u4 = new User("puttat",
+        u3 = userService.save(u3);
+
+        User u4 = new User("weston",
                 "password",
-                "puttat@school.lambda");
+                "weston@mail.com");
         u4.getRoles()
                 .add(new UserRoles(u4,
                         r2));
-        u4.getProducts()
-                .add(new Product("Eggssss", 2.00,"A dozen organic eggs laid by only the happiest of chickens", "https://images.unsplash.com/photo-1585507252242-11fe632c26e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", 1, u4, l4));
-        userService.save(u4);
 
-        User u5 = new User("misskitty",
+        u4 = userService.save(u4);
+
+        User u5 = new User("james",
                 "password",
-                "misskitty@school.lambda");
+                "james@mail.com");
         u5.getRoles()
                 .add(new UserRoles(u5,
                         r2));
-        u5.getProducts()
-                .add(new Product("Eggsssssss", 2.00,"A dozen organic eggs laid by only the happiest of chickens", "https://images.unsplash.com/photo-1585507252242-11fe632c26e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", 1, u5, l5));
-        userService.save(u5);
+
+        u5 = userService.save(u5);
+
+        User u6 = new User("buyer",
+                "password",
+                "buyer@mail.com");
+        u6.getRoles()
+                .add(new UserRoles(u6,
+                        r3));
+
+        u6 = userService.save(u6);
+
+        Product p1 = new Product();
+
+        p1.setName("Eggs");
+        p1.setDescription("A dozen organic eggs laid by only the happiest of chickens!");
+        p1.setPrice(2.00);
+        p1.setImageUrl("https://images.unsplash.com/photo-1585507252242-11fe632c26e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+        p1.setQuantity(1);
+        p1.setUser(u1);
+        p1.setLocation(l1);
+        p1.setCategory(c1);
+
+        productService.save(p1);
+
+        Product p2 = new Product();
+//
+        p2.setName("Carrots");
+        p2.setDescription("2 Kilos of organic carrots, the Bugs Bunny special!");
+        p2.setPrice(4.00);
+        p2.setImageUrl("https://images.unsplash.com/photo-1445282768818-728615cc910a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80");
+        p2.setQuantity(1);
+        p2.setUser(u1);
+        p2.setLocation(l1);
+        p2.setCategory(c2);
+
+        productService.save(p2);
+//
+        Product p3 = new Product();
+
+        p3.setName("Beef");
+        p3.setDescription("2 Kilos of premium beef cut from the not so happiest of cows!");
+        p3.setPrice(14.00);
+        p3.setImageUrl("https://images.unsplash.com/photo-1486172290186-a633e90efd68?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+        p3.setQuantity(1);
+        p3.setUser(u1);
+        p3.setLocation(l1);
+        p3.setCategory(c1);
+
+        productService.save(p3);
+
+        Product p4 = new Product();
+
+        p4.setName("Chicken");
+        p4.setDescription("1 whole chicken who wasn't doing enough egg laying, take that chicken!");
+        p4.setPrice(10.00);
+        p4.setImageUrl("https://images.unsplash.com/photo-1553161170-0c3481941f27?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80");
+        p4.setQuantity(1);
+        p4.setUser(u2);
+        p4.setLocation(l2);
+        p4.setCategory(c1);
+
+        productService.save(p4);
+
+        Product p5 = new Product();
+
+        p5.setName("Bacon");
+        p5.setDescription("2 Kilos of thick cut bacon. Babe didn't stand a chance!");
+        p5.setPrice(12.00);
+        p5.setImageUrl("https://images.unsplash.com/photo-1606851682837-019baf2e8da4?ixlib=rb-1.2.1&ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80");
+        p5.setQuantity(1);
+        p5.setUser(u2);
+        p5.setLocation(l2);
+        p5.setCategory(c1);
+
+        productService.save(p5);
+
+        Product p6 = new Product();
+
+        p6.setName("Beans");
+        p6.setDescription("2 Kilos of Beans, beans, the musical fruit The more you eat, the more you toot The more you toot, the better you feel So let's have beans with every meal!");
+        p6.setPrice(4.00);
+        p6.setImageUrl("https://images.unsplash.com/photo-1579705745811-a32bef7856a3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+        p6.setQuantity(1);
+        p6.setUser(u3);
+        p6.setLocation(l3);
+        p6.setCategory(c2);
+
+        productService.save(p6);
+
+        Product p7 = new Product();
+
+        p7.setName("Apples");
+        p7.setDescription("2 Kilos of bright red apples! Sleeping Beauty doesn't stand a chance!");
+        p7.setPrice(7.00);
+        p7.setImageUrl("https://images.unsplash.com/photo-1506808541308-577f3be75bb7?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=748&q=80");
+        p7.setQuantity(1);
+        p7.setUser(u3);
+        p7.setLocation(l3);
+        p7.setCategory(c3);
+
+        productService.save(p7);
+
+        Product p8 = new Product();
+
+        p8.setName("Avocados");
+        p8.setDescription("2 Kilos of Avocados. Idk when this started going on toast but thank you");
+        p8.setPrice(20.00);
+        p8.setImageUrl("https://images.unsplash.com/photo-1522687297221-2d71f8c50fd5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+        p8.setQuantity(1);
+        p8.setUser(u4);
+        p8.setLocation(l4);
+        p8.setCategory(c3);
+
+        productService.save(p8);
+
+        Product p9 = new Product();
+
+        p9.setName("Banana");
+        p9.setDescription("2 kilos of ripe bananas, a Mario Cart weapon of doom");
+        p9.setPrice(5.00);
+        p9.setImageUrl("https://images.unsplash.com/photo-1580750569071-cc51212346f6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80");
+        p9.setQuantity(1);
+        p9.setUser(u4);
+        p9.setLocation(l6);
+        p9.setCategory(c3);
+
+        productService.save(p9);
+
+        Product p10 = new Product();
+
+        p10.setName("Kale");
+        p10.setDescription("2 Kilos of kale, so gross");
+        p10.setPrice(10.00);
+        p10.setImageUrl("https://images.unsplash.com/photo-1522193582792-c66cf1cddd16?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80");
+        p10.setQuantity(1);
+        p10.setUser(u5);
+        p10.setLocation(l5);
+        p10.setCategory(c2);
+
+        productService.save(p10);
 
         if (false)
         {
@@ -301,9 +318,6 @@ public class SeedData
                 fakeUser.getRoles()
                         .add(new UserRoles(fakeUser,
                                 r2));
-                fakeUser.getUseremails()
-                        .add(new Useremail(fakeUser,
-                                fakeValuesService.bothify("????##@gmail.com")));
                 userService.save(fakeUser);
             }
         }

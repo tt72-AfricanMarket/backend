@@ -50,8 +50,6 @@ public class User
     @Email
     private String email;
 
-    private String country;
-
     /**
      * Part of the join relationship between user and role
      * connects users to the user role combination
